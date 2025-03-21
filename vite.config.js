@@ -5,8 +5,4 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   base: "Tantantan-py.github.io",
   plugins: [react()],
-  server: {
-    port: 5173, // Ensures it runs on the correct port
-  },
-  base: "./",
 });
