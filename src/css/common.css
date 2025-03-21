@@ -1,0 +1,140 @@
+/* Reference: 
+
+<Toggling Mobile Navigation Visibility with CSS: The Checkbox Hack>
+
+Link: https://dev.to/joxx/toggling-mobile-navigation-visibility-with-css-the-checkbox-hack-7ej
+
+https://codepen.io/joxx/pen/MWZZejp
+*/
+@import url(https://fonts.googleapis.com/css2?family=Rubik);
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --nav-text-color: rgb(0, 80, 155);
+  --nav-cur-page-text-color: rgb(0, 127, 155);
+  --nav-bg-color: rgb(215, 215, 215);
+  --toggled-menu-bg-color: rgb(178, 237, 255);
+}
+
+body {
+  color: var(--nav-text-color);
+  font-family: "Rubik", serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background-color: var(--nav-bg-color);
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  z-index: 1000;
+}
+
+h1 {
+  font-size: inherit;
+  line-height: inherit;
+  margin: 10px;
+}
+
+.logo {
+  padding-left: 1rem;
+}
+
+#menuToggle {
+  display: none;
+}
+
+label {
+  cursor: pointer;
+  padding-right: 1rem;
+}
+
+nav {
+  background-color: var(--toggled-menu-bg-color);
+  height: 100vh;
+  left: 50%;
+  position: fixed;
+  z-index: 1000; /* make sure the nav bar always stays in the same position */
+  text-align: right;
+  transform: translate(-50%, -50%) scale(0);
+  top: 50%;
+  width: 100vw;
+  transition: transform 0.5s;
+  padding-right: 1rem;
+}
+
+nav :hover {
+  scale: 1.1;
+}
+
+nav label {
+  line-height: 3;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding-right: 1rem;
+  text-align: center;
+}
+
+ul a.active {
+  color: var(--nav-cur-page-text-color);
+  font-weight: bold;
+}
+
+#menuToggle:checked + label + nav {
+  transform: translate(-50%, -50%) scale(1);
+  transition: 0.3s;
+}
+
+@media (min-width: 700px) {
+  header > label,
+  nav label {
+    display: none;
+  }
+
+  nav {
+    background-color: transparent;
+    color: var(--nav-text-color);
+    display: flex;
+    height: auto;
+    left: auto;
+    position: relative;
+    transform: none;
+    transition: none;
+    top: auto;
+    width: auto;
+    padding-right: 1rem;
+  }
+
+  ul {
+    display: flex;
+    transition: color 0.3s ease;
+  }
+
+  ul li {
+    margin-left: 1rem;
+  }
+
+  ul a.active {
+    color: var(--nav-cur-page-text-color);
+    font-weight: bold;
+  }
+}

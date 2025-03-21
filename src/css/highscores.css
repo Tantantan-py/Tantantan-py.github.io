@@ -1,0 +1,54 @@
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --main-bg-color: #fff;
+  --table-even-row-color: rgb(231, 249, 255);
+  --table-header-color: rgb(178, 242, 255);
+  --table-border-color: #007f9b;
+  --rank-color: darkblue;
+}
+
+.highscores-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+.highscores-table th,
+.highscores-table td {
+  border: 1px solid var(--table-border-color);
+  padding: 10px;
+  text-align: center;
+}
+
+.highscores-table th {
+  background-color: var(--table-header-color);
+  font-weight: bold;
+}
+
+.highscores-table tr:nth-child(even) {
+  background-color: var(--table-even-row-color);
+}
+
+.highlight {
+  color: var(--rank-color);
+  font-weight: bold;
+}
+
+.home-main-container p {
+  margin: 0 !important;
+  padding: 0;
+  padding-bottom: 1rem; /* Adjust as needed */
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+}
