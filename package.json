@@ -9,8 +9,6 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "node server.js",
-    "postinstall": "npm run build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
