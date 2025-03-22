@@ -132,3 +132,17 @@ button:hover {
   color: var(--hit-text-color);
   font-weight: bold;
 }
+
+.cell:hover {
+  filter: brightness(90%);
+}
+
+.hit:hover {
+  filter: brightness(110%);
+  cursor: not-allowed;
+}
+
+.miss:hover {
+  filter: brightness(80%);
+  cursor: not-allowed;
+}
