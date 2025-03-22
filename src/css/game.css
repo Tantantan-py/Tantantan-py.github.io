@@ -146,3 +146,25 @@ button:hover {
   filter: brightness(80%);
   cursor: not-allowed;
 }
+
+.boards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.board-section {
+  width: fit-content;
+}
+
+@media (min-width: 768px) {
+  .boards-container {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .board-section {
+    margin: 0 20px;
+  }
+}
