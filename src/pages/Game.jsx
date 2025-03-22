@@ -198,30 +198,35 @@ function Game() {
       </div>
 
       <p>{message}</p>
-
-      <h2>Your Board</h2>
-      <div className="game-board player-board">
-        {playerBoard.map((cell, index) => (
-          <div key={index} className={`cell ${cell}`}>
-            {renderPlayerCell(cell)}
+      <div className="boards-container">
+        <div className="board-section">
+          <h2>Your Board</h2>
+          <div className="game-board player-board">
+            {playerBoard.map((cell, index) => (
+              <div key={index} className={`cell ${cell}`}>
+                {renderPlayerCell(cell)}
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
 
-      <h2>Enemy Board {gameMode === "easy" && "(Easy Mode)"}</h2>
-      <div className="game-board enemy-board">
-        {enemyBoard.map((cell, index) => {
-          const { display, className } = getEnemyCellProps(cell);
-          return (
-            <div
-              key={index}
-              className={`cell ${className}`}
-              onClick={() => handleEnemyCellClick(index)}
-            >
-              {display}
-            </div>
-          );
-        })}
+        <div className="board-section">
+          <h2>Enemy Board {gameMode === "easy" && "(Easy Mode)"}</h2>
+          <div className="game-board enemy-board">
+            {enemyBoard.map((cell, index) => {
+              const { display, className } = getEnemyCellProps(cell);
+              return (
+                <div
+                  key={index}
+                  className={`cell ${className}`}
+                  onClick={() => handleEnemyCellClick(index)}
+                >
+                  {display}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </main>
   );
