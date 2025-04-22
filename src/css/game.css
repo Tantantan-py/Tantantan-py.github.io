@@ -23,6 +23,8 @@ body,
   --miss-text-color: red;
   --hit-bg: lightgreen;
   --hit-text-color: darkgreen;
+
+  --cell-size: 40px;
 }
 
 .game-main-container {
@@ -87,18 +89,16 @@ button:hover {
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(10, 40px);
-  grid-template-rows: repeat(10, 40px);
+  grid-template-columns: repeat(10, var(--cell-size));
+  grid-template-rows: repeat(10, var(--cell-size));
   gap: 3px;
-  row-gap: 3px;
   justify-content: center;
   margin: 20px auto;
-  border-collapse: collapse;
 }
 
 .cell {
-  width: 40px;
-  height: 40px;
+  width: var(--cell-size);
+  height: var(--cell-size);
   background-color: var(--cell-bg);
   display: flex;
   align-items: center;
@@ -159,13 +159,12 @@ button:hover {
   width: fit-content;
 }
 
-@media (min-width: 700px) {
-  .boards-container {
-    flex-direction: row;
-    justify-content: center;
+@media (max-width: 700px) {
+  :root {
+    --cell-size: calc((100vw - 2rem) / 10.5);
   }
 
-  .board-section {
-    margin: 0 20px;
+  .game-main-container {
+    margin: 0;
   }
 }
