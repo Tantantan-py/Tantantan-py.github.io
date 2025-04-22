@@ -76,7 +76,7 @@ export function GameProvider({ children }) {
     // Only trigger AI if in normal mode
     if (gameMode === "normal") {
       setCurrentTurn("ai");
-      setTimeout(aiTurn, 500);
+      setTimeout(aiTurn, 100);
     }
     // in freeplay: stay on player turn, AI never fires
   };

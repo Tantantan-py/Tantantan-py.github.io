@@ -14,18 +14,21 @@ function Game() {
     winner,
     resetGame,
     message,
+    gameMode,
     setGameMode,
   } = useGameContext();
 
   useEffect(() => {
-    setGameMode(mode ? mode.toLowerCase() : "normal");
+    const normalizedMode = mode === "easy" ? "freeplay" : "normal";
+    setGameMode(normalizedMode);
+    resetGame();
   }, [mode]);
 
   useEffect(() => {
     if (gameOver) return;
     const timerId = setInterval(() => setTimeElapsed((t) => t + 1), 1000);
     return () => clearInterval(timerId);
-  }, [gameOver]);
+  }, [gameOver, setTimeElapsed]);
 
   return (
     <main className="game-main-container">
@@ -37,7 +40,7 @@ function Game() {
       </div>
 
       <div className="boards-container">
-        {mode !== "freeplay" && (
+        {gameMode !== "freeplay" && (
           <div className="board-section">
             <h2>Your Board</h2>
             <Board type="player" />
@@ -45,7 +48,7 @@ function Game() {
         )}
 
         <div className="board-section">
-          <h2>{mode === "freeplay" ? "Opponent Board" : "Enemy Board"}</h2>
+          <h2>{gameMode === "freeplay" ? "Opponent Board" : "Enemy Board"}</h2>
           <Board type="enemy" />
         </div>
       </div>
