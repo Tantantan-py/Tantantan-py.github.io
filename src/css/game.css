@@ -162,7 +162,7 @@ button:hover {
 @media (min-width: 700px) {
   .boards-container {
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
   }
 
   .board-section {
