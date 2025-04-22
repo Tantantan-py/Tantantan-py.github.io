@@ -2,29 +2,41 @@ import React from "react";
 import { useGameContext } from "../context/GameContext";
 
 function Cell({ index, type, value }) {
-  const { handleEnemyCellClick, currentTurn, gameOver } = useGameContext();
+  const { handleEnemyCellClick, gameOver, gameMode } = useGameContext();
 
-  const render = () => {
+  const shouldShowShips = type === "player" || gameMode === "easy";
+
+  // Decide what icon to render
+  const renderContent = () => {
     if (value === "hit") return "✔";
     if (value === "miss") return "X";
-    if (value === "ship" && type === "player") return "⛴️";
-    if (value === "ship" && type === "enemy") return "•";
+    if (value === "ship") {
+      if (shouldShowShips) {
+        return type === "player" ? "⛴️" : "•";
+      }
+      return "";
+    }
     return "";
   };
 
+  let statusClass = "";
+  if (value === "hit") statusClass = "hit";
+  else if (value === "miss") statusClass = "miss";
+  else if (value === "ship" && shouldShowShips) statusClass = "ship";
+
   const handleClick = () => {
-    if (type === "enemy") {
+    if (!gameOver && type === "enemy") {
       handleEnemyCellClick(index);
     }
   };
 
   return (
     <div
-      className={`cell ${value}`}
+      className={`cell ${statusClass}`}
       onClick={handleClick}
-      style={{ cursor: type === "enemy" ? "pointer" : "default" }}
+      style={{ cursor: type === "enemy" && !gameOver ? "pointer" : "default" }}
     >
-      {render()}
+      {renderContent()}
     </div>
   );
 }
