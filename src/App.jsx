@@ -3,7 +3,7 @@ import "./css/common.css";
 import "./css/home.css";
 import "./css/game.css";
 
-import Navbar from "../components/Navbar";
+import NavBar from "./components/NavBar";
 import HomePage from "./pages/Home";
 import Game from "./pages/Game";
 import Rules from "./pages/Rules";
@@ -13,7 +13,7 @@ import { GameProvider } from "./context/GameContext";
 function App() {
   return (
     <GameProvider>
-      <Navbar />
+      <NavBar />
       <main className="main-container">
         <Routes>
           <Route path="/" element={<HomePage />} />

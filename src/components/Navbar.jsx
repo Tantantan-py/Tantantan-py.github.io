@@ -1,6 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 
-function Navbar() {
+function NavBar() {
   const { pathname } = useLocation();
 
   return (
@@ -49,4 +49,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default NavBar;
