@@ -14,20 +14,17 @@ function placeShips(board) {
     let placed = false;
     while (!placed) {
       const horizontal = Math.random() < 0.5;
-
       const row = horizontal
         ? Math.floor(Math.random() * 10)
-        : Math.floor(Math.random() * (10 - size + 1)); // ✅ vertical placement: constrain rows
-
+        : Math.floor(Math.random() * (10 - size + 1));
       const col = horizontal
-        ? Math.floor(Math.random() * (10 - size + 1)) // ✅ horizontal placement: constrain cols
+        ? Math.floor(Math.random() * (10 - size + 1))
         : Math.floor(Math.random() * 10);
 
       let canPlace = true;
-
       for (let i = 0; i < size; i++) {
-        const index = horizontal ? row * 10 + col + i : (row + i) * 10 + col;
-        if (newBoard[index] === "ship") {
+        const idx = horizontal ? row * 10 + col + i : (row + i) * 10 + col;
+        if (newBoard[idx] === "ship") {
           canPlace = false;
           break;
         }
@@ -35,8 +32,8 @@ function placeShips(board) {
 
       if (canPlace) {
         for (let i = 0; i < size; i++) {
-          const index = horizontal ? row * 10 + col + i : (row + i) * 10 + col;
-          newBoard[index] = "ship";
+          const idx = horizontal ? row * 10 + col + i : (row + i) * 10 + col;
+          newBoard[idx] = "ship";
         }
         placed = true;
       }
@@ -59,6 +56,7 @@ export function GameProvider({ children }) {
   const [gameOver, setGameOver] = useState(false);
   const [winner, setWinner] = useState("");
   const [timeElapsed, setTimeElapsed] = useState(0);
+
   const [gameMode, setGameMode] = useState("normal");
 
   const handleEnemyCellClick = (index) => {
@@ -75,11 +73,17 @@ export function GameProvider({ children }) {
     }
     setEnemyBoard(newEnemyBoard);
 
-    setCurrentTurn("ai");
-    setTimeout(aiTurn, 500);
+    // Only trigger AI if in normal mode
+    if (gameMode === "normal") {
+      setCurrentTurn("ai");
+      setTimeout(aiTurn, 500);
+    }
+    // in freeplay: stay on player turn, AI never fires
   };
 
   const aiTurn = () => {
+    if (gameOver || gameMode !== "normal") return;
+
     const available = playerBoard
       .map((cell, i) => (cell !== "hit" && cell !== "miss" ? i : null))
       .filter((i) => i !== null);
@@ -127,24 +131,18 @@ export function GameProvider({ children }) {
     <GameContext.Provider
       value={{
         playerBoard,
-        setPlayerBoard,
         enemyBoard,
-        setEnemyBoard,
         currentTurn,
-        setCurrentTurn,
         message,
-        setMessage,
         gameOver,
-        setGameOver,
         winner,
-        setWinner,
         timeElapsed,
-        setTimeElapsed,
-        handleEnemyCellClick,
-        aiTurn,
-        resetGame,
         gameMode,
         setGameMode,
+
+        handleEnemyCellClick,
+        resetGame,
+        setTimeElapsed,
       }}
     >
       {children}

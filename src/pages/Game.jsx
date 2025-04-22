@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-
 import { useGameContext } from "../context/GameContext";
 import Board from "../components/Board";
 import "../css/game.css";
@@ -19,16 +18,14 @@ function Game() {
   } = useGameContext();
 
   useEffect(() => {
-    if (gameOver) return;
-    const timerId = setInterval(() => {
-      setTimeElapsed((prev) => prev + 1);
-    }, 1000);
-    return () => clearInterval(timerId);
-  }, [gameOver]);
-
-  useEffect(() => {
     setGameMode(mode ? mode.toLowerCase() : "normal");
   }, [mode]);
+
+  useEffect(() => {
+    if (gameOver) return;
+    const timerId = setInterval(() => setTimeElapsed((t) => t + 1), 1000);
+    return () => clearInterval(timerId);
+  }, [gameOver]);
 
   return (
     <main className="game-main-container">
@@ -40,12 +37,15 @@ function Game() {
       </div>
 
       <div className="boards-container">
+        {mode !== "freeplay" && (
+          <div className="board-section">
+            <h2>Your Board</h2>
+            <Board type="player" />
+          </div>
+        )}
+
         <div className="board-section">
-          <h2>Your Board</h2>
-          <Board type="player" />
-        </div>
-        <div className="board-section">
-          <h2>Enemy Board</h2>
+          <h2>{mode === "freeplay" ? "Opponent Board" : "Enemy Board"}</h2>
           <Board type="enemy" />
         </div>
       </div>
