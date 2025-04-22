@@ -3,7 +3,7 @@ import "./css/common.css";
 import "./css/home.css";
 import "./css/game.css";
 
-import Navbar from "./components/NavBar";
+import Navbar from "../components/Navbar";
 import HomePage from "./pages/Home";
 import Game from "./pages/Game";
 import Rules from "./pages/Rules";
